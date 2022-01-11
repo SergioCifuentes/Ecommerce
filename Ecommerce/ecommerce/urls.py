@@ -20,13 +20,29 @@ app_name ='ecommerce'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(
-        'login/',
-        views.login,
-        name='login'
+        'signin/',
+        views.signin,
+        name='signin'
+    ),
+    path(
+        'signup/',
+        views.signup,
+        name='signup'
     ),
     path(
         'lista_productos/',
         views.lista_productos,
         name='lista_productos'
     ),
+    path(
+        'agregar_producto/',
+        views.agregar_producto,
+        name='agregar_producto'
+    ),
+    path(
+        'comprar_producto/<int:id>', 
+        views.comprar_producto, 
+        name='comprar_producto'
+    ),
+    
 ]

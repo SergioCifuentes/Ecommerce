@@ -1,1 +1,39 @@
-<h1>Lista de Productos</h1>
+{% include 'base.html' %}
+{% include 'static/navbar.html' %}
+
+<h1 class="h2">Productos Existentes</h1>
+<div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group me-2">
+        <a type="submit" href="{% url 'ecommerce:agregar_producto' %}" class="btn btn-sm btn-outline-secondary">Agregar
+            Producto</a>
+
+    </div>
+
+</div>
+</div>
+
+<br>
+<div class="container" style="width: 85%;align-self: center;">
+    {% for product in products %}
+    <div class="card border-success mb-3" style="max-width: 85rem;">
+        <div class="card-header">
+            <p style="text-align:left;">
+                <b style="font-size: 20px;">{{ product.nombre }}</b>
+
+
+            </p>
+        </div>
+        <div class="card-body text-success">
+            <h4 class="card-title">{{ product.descripcion }}</h4>
+            <p style="display:inline;text-align:left;" class="card-text">Fecha de publicacion: <b>{{ product.fecha_publicacion }}
+                    
+                </b>
+                <a href="{% url 'ecommerce:comprar_producto' product.id %}" type="submit" class="btn btn-primary" style="float:right;">
+                    Comprar
+                </a> </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include 'static/footer.html' %}
+{% include 'scripts.html' %}

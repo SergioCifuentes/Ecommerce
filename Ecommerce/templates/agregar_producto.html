@@ -1,0 +1,50 @@
+{% include 'base.html' %}
+{% include 'static/navbar.html' %}
+{% block content %}
+<h1>agregar_producto</h1>
+</div>
+
+<form method="post">
+    {% csrf_token %}    
+    <p>
+        {{ form.nombre.label_tag }}<br>
+        {{ form.nombre }}
+        {% if form.nombre.help_text %}
+        <small style="color: grey">{{ form.nombre.help_text }}</small>
+        {% endif %}
+        {% for error in form.nombre.errors %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.descripcion.label_tag }}<br>
+        {{ form.descripcion }}
+        {% if form.descripcion.help_text %}
+        <small style="color: grey">{{ form.descripcion.help_text }}</small>
+        {% endif %}
+        {% for error in form.descripcion.errors %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.precio.label_tag }}<br>
+        {{ form.precio }}
+        {% if form.precio.help_text %}
+        <small style="color: grey">{{ form.precio.help_text }}</small>
+        {% endif %}
+        {% for error in form.precio.errors %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %}
+    </p>
+    {{ form.usuario }}
+    {{ form.estado }}
+    {{ form.fecha_publicacion }}
+    <button type="submit">Publicar</button>
+</form>
+{% endblock %}
+
+
+
+
+{% include 'static/footer.html' %}
+{% include 'scripts.html' %}
