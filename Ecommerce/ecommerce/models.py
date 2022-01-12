@@ -23,7 +23,6 @@ class Producto(models.Model):
 
 class Pago(models.Model):
     
-    tipo= models.IntegerField() 
     no_tarjeta= models.BigIntegerField(null=True)
     nombre_tarjeta= models.CharField(max_length=40)
     cvv= models.IntegerField() 

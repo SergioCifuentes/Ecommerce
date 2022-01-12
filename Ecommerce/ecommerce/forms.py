@@ -21,3 +21,9 @@ class ProductForm(forms.ModelForm):
         widgets = {'usuario': forms.HiddenInput(),
         'estado': forms.HiddenInput(),
         'fecha_publicacion': forms.HiddenInput()}
+
+class PagoForm(forms.ModelForm):
+    class Meta:
+        model = Pago
+        fields = '__all__'
+        

@@ -1,9 +1,9 @@
 from django.shortcuts import redirect, render
 from django.contrib import auth, messages 
-from . import models
+from .models import *
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, ProductForm
+from .forms import *
 from datetime import date
 # Create your views here.
 def signin(request):
@@ -35,7 +35,7 @@ def lista_productos(request):
         pass
         return render(request, 'lista_productos.html', {'form': "invalid"})
     else:
-        context = {'products':models.Producto.objects.all()}
+        context = {'products':Producto.objects.all()}
         return render(request,"lista_productos.html", context)
 
 
@@ -73,6 +73,7 @@ def comprar_producto(request,id):
         pass
         
     else:
-        
-        context = {'product':models.Producto.objects.get(id=id)}
+        form = PagoForm()
+        context = {'product':Producto.objects.get(id=id),
+                    'form': form}
         return render(request,"comprar_producto.html", context)

@@ -2,6 +2,37 @@
 {% include 'static/navbar.html' %}
 
 <h1 class="h2">{{product.nombre}}</h1>
+
+</div>
+<h4 class="h2">{{product.descripcion}}</h4>
+<br>
+<div class="container" style="width: 45%;align-self: center;">
+<form method="post">
+    {% csrf_token %}    
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <br>
+    <div style="float:right;" class="container">
+        
+        <button style="float:right;" type="submit" class="btn btn-primary" >Comprar</button>
+        
+        <a  style="float:right; font-size: 25px; color:navy; ">
+           TOTAL: Q {{ product.precio }} &nbsp;&nbsp;&nbsp;
+        </a>
+        
+    </div>
+    
+</form>
 </div>
 {% include 'static/footer.html' %}
 {% include 'scripts.html' %}
