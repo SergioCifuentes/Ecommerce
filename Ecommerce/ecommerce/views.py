@@ -5,6 +5,9 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import *
 from datetime import date
+import pycurl
+from io import BytesIO
+import json
 # Create your views here.
 def signin(request):
     
@@ -70,10 +73,42 @@ def agregar_producto(request):
 
 def comprar_producto(request,id): 
     if request.method == 'POST':
-        pass
+        dat = {"id": 52, "configuration": [{"virbr0": {"address": "192.168.122.1"}}]}
+        res = curl_post("http://192.168.122.191:8000/authorization/estado/", json.dumps(dat), "virbr0")
+        print(res)
         
     else:
         form = PagoForm()
         context = {'product':Producto.objects.get(id=id),
                     'form': form}
         return render(request,"comprar_producto.html", context)
+
+
+
+
+def curl_post(url, data, iface=None):
+    c = pycurl.Curl()
+    buffer = BytesIO()
+    c.setopt(pycurl.URL, url)
+    c.setopt(pycurl.POST, True)
+    c.setopt(pycurl.HTTPHEADER, ['Content-Type: application/json'])
+    c.setopt(pycurl.TIMEOUT, 10)
+    c.setopt(pycurl.WRITEFUNCTION, buffer.write)
+    c.setopt(pycurl.POSTFIELDS, data)
+    if iface:
+        c.setopt(pycurl.INTERFACE, iface)
+    c.perform()
+
+    # Json response
+    resp = buffer.getvalue().decode('UTF-8')
+
+    #  Check response is a JSON if not there was an error
+    try:
+        resp = json.loads(resp)
+    except json.decoder.JSONDecodeError:
+        pass
+
+    buffer.close()
+    c.close()
+    return resp
+
