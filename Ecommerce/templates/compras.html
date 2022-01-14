@@ -1,0 +1,48 @@
+{% include 'base.html' %}
+{% include 'static/navbar.html' %}
+
+<h1 class="h2">Compras</h1>
+
+</div>
+
+<br>
+
+
+<div class="container" style="width: 85%;align-self: center;">
+    {% for transaccion in transacciones %}
+    {% if transaccion.estado == 1 %}
+    <div class="card border-success mb-3" style="max-width: 85rem;">
+    {% else %}
+    <div class="card border-danger mb-3" style="max-width: 85rem;">
+    {% endif %}
+
+    <div class="card-header">
+        <p style="text-align:left;">
+            <b style="font-size: 20px;"> {{ transaccion.producto }}</b>
+            <a style="float:right; font-size: 15px; ">
+                ID #{{ transaccion.producto.id }}
+            </a>
+
+        </p>
+    </div>
+    {% if transaccion.estado == 1 %}
+    <div class="card-body text-success">
+    {% else %}
+    <div class="card-body text-danger">
+    {% endif %}
+    
+        <h4 class="card-title">comprador {{ transaccion.producto.descripcion }}</h4>
+        <p style="display:inline;text-align:left;" class="card-text">Fecha de solicitud: <b>{{ transaccion.fecha_publicacion }}</p>
+        
+    </div>
+</div>
+{% endfor %}
+
+
+
+</div>
+
+
+
+{% include 'static/footer.html' %}
+{% include 'scripts.html' %}

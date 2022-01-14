@@ -44,5 +44,10 @@ urlpatterns = [
         views.comprar_producto, 
         name='comprar_producto'
     ),
+    path(
+        'compras/', 
+        views.compras, 
+        name='compras'
+    ),
     
 ]

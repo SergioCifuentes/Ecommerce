@@ -15,7 +15,14 @@
 <br>
 <div class="container" style="width: 85%;align-self: center;">
     {% for product in products %}
+    {% if product.estado == 1 %}
     <div class="card border-success mb-3" style="max-width: 85rem;">
+    {% elif producto.estado == 2 %}
+    <div class="card border-danger mb-3" style="max-width: 85rem;">
+    {% else %}
+    <div class="card border-warning mb-3" style="max-width: 85rem;">
+    {% endif %}
+    
         <div class="card-header">
             <p style="text-align:left;">
                 <b style="font-size: 20px;">{{ product.nombre }}</b>
@@ -25,14 +32,22 @@
 
             </p>
         </div>
+        {% if product.estado == 1 %}
         <div class="card-body text-success">
+        {% elif producto.estado == 2 %}
+        <div class="card-body text-danger">
+        {% else %}
+        <div class="card-body text-warning">
+        {% endif %}
             <h4 class="card-title">{{ product.descripcion }}</h4>
             <p style="display:inline;text-align:left;" class="card-text">Fecha de publicacion: <b>{{ product.fecha_publicacion }}
                     
                 </b>
+
+                {% if product.usuario.get_username != user.get_username %}
                 <a href="{% url 'ecommerce:comprar_producto' product.id %}" type="submit" class="btn btn-primary" style="float:right;">
                     Comprar
-                </a> </p>
+                </a> {%endif%} </p>
         </div>
     </div>
     {% endfor %}
