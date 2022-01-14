@@ -5,7 +5,6 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import *
 from datetime import date
-import pycurl
 from io import BytesIO
 import json
 import requests
@@ -144,29 +143,5 @@ def comprar_producto(request,id):
 
 
 
-def curl_post(url, data, iface=None):
-    c = pycurl.Curl()
-    buffer = BytesIO()
-    c.setopt(pycurl.URL, url)
-    c.setopt(pycurl.POST, True)
-    c.setopt(pycurl.HTTPHEADER, ['Content-Type: application/json'])
-    c.setopt(pycurl.TIMEOUT, 10)
-    c.setopt(pycurl.WRITEFUNCTION, buffer.write)
-    c.setopt(pycurl.POSTFIELDS, data)
-    if iface:
-        c.setopt(pycurl.INTERFACE, iface)
-    c.perform()
 
-    # Json response
-    resp = buffer.getvalue().decode('UTF-8')
-
-    #  Check response is a JSON if not there was an error
-    try:
-        resp = json.loads(resp)
-    except json.decoder.JSONDecodeError:
-        pass
-
-    buffer.close()
-    c.close()
-    return resp
 
